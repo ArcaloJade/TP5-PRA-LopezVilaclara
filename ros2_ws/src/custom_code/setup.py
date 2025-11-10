@@ -34,6 +34,7 @@ setup(
             'ekf_prediction = custom_code.ekf_prediction:main',
             'ekf_correction = custom_code.ekf_correction:main',
             'fastslam = custom_code.my_fastslam:main',
+            "fastslam_node = custom_code.fastslam_correct:main"
         ],
     },
 )

@@ -1,1 +1,12 @@
-/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/custom_msgs/rosidl_generator_cpp/custom_msgs/msg/delta_odom.hpp
+// generated from rosidl_generator_cpp/resource/idl.hpp.em
+// generated code does not contain a copyright notice
+
+#ifndef CUSTOM_MSGS__MSG__DELTA_ODOM_HPP_
+#define CUSTOM_MSGS__MSG__DELTA_ODOM_HPP_
+
+#include "custom_msgs/msg/detail/delta_odom__struct.hpp"
+#include "custom_msgs/msg/detail/delta_odom__builder.hpp"
+#include "custom_msgs/msg/detail/delta_odom__traits.hpp"
+#include "custom_msgs/msg/detail/delta_odom__type_support.hpp"
+
+#endif  // CUSTOM_MSGS__MSG__DELTA_ODOM_HPP_

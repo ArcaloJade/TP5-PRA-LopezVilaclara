@@ -1,1 +1,2 @@
-/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/ament_cmake_environment_hooks/local_setup.dsv
+source;share/turtlebot3_custom_simulation/environment/ament_prefix_path.sh
+source;share/turtlebot3_custom_simulation/environment/path.sh

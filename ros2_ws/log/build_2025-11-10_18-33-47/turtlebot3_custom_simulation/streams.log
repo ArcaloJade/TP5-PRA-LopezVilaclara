@@ -1,0 +1,42 @@
+[0.006s] Invoking command in '/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation -- -j28 -l28
+[0.029s] [35m[1mConsolidate compiler generated dependencies of target turtlebot3_custom_simulation[0m
+[0.041s] [100%] Built target turtlebot3_custom_simulation
+[0.047s] Invoked command in '/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation -- -j28 -l28
+[0.051s] Invoking command in '/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation
+[0.056s] -- Install configuration: ""
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/lib/turtlebot3_custom_simulation/turtlebot3_custom_simulation
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/launch
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/launch/custom_simulation.launch.py
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/launch/custom_room.launch.py
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/param
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/param/burger.yaml
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/map
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/map/map.pgm
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/map/map.yaml
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/Walls
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/Walls/model.config
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/Walls/model.sdf
+[0.056s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/room.world
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/slippery.world
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/include/
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/include//turtlebot3_custom_simulation
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/include//turtlebot3_custom_simulation/turtlebot3_custom_simulation.hpp
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/package_run_dependencies/turtlebot3_custom_simulation
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/parent_prefix_path/turtlebot3_custom_simulation
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/ament_prefix_path.sh
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/ament_prefix_path.dsv
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/path.sh
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/path.dsv
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.bash
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.sh
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.zsh
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.dsv
+[0.057s] -- Installing: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/package.dsv
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/packages/turtlebot3_custom_simulation
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/ament_cmake_export_include_directories-extras.cmake
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/ament_cmake_export_dependencies-extras.cmake
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/turtlebot3_custom_simulationConfig.cmake
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/turtlebot3_custom_simulationConfig-version.cmake
+[0.057s] -- Up-to-date: /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/package.xml
+[0.058s] Invoked command in '/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation

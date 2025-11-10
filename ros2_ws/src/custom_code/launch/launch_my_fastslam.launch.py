@@ -34,6 +34,25 @@ def generate_launch_description():
         output='screen'
     )
 
+    fastslam_node = Node(
+        package='custom_code',
+        executable='fastslam_node',
+        name='fastslam_node',
+        output='screen'
+    )
+
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        # Si tienes un archivo de configuración específico para RViz
+        # puedes añadir la configuración de RViz como parámetro.
+        # Por ejemplo:
+        arguments=['-d', os.path.join(
+            get_package_share_directory('custom_code'), 'rviz', 'my_config.rviz')],
+    )
+
     # --- Event handlers to enforce order ---
     # Start 'features' only after 'feature_finder' has started
     start_features_after_finder = RegisterEventHandler(
@@ -47,10 +66,9 @@ def generate_launch_description():
     start_ekf_after_features = RegisterEventHandler(
         OnProcessStart(
             target_action=features,
-            on_start=[fastslam]
+            on_start=[fastslam, fastslam_node]
         )
     )
-    
     
 
     ld = LaunchDescription()

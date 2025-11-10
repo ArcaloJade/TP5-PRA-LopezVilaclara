@@ -1,1 +1,9 @@
-/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/turtlebot3_custom_simulation/param/burger.yaml
+turtlebot3_fake_node:
+  ros__parameters:
+    wheels:
+      separation: 0.159 #0.160
+      radius: 0.032 #0.033
+
+    joint_states_frame: "base_footprint"
+    odom_frame: "calc_odom"
+    base_frame: "base_footprint"

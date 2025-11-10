@@ -1,0 +1,83 @@
+running egg_info
+creating ../../build/custom_code/custom_code.egg-info
+writing ../../build/custom_code/custom_code.egg-info/PKG-INFO
+writing dependency_links to ../../build/custom_code/custom_code.egg-info/dependency_links.txt
+writing entry points to ../../build/custom_code/custom_code.egg-info/entry_points.txt
+writing requirements to ../../build/custom_code/custom_code.egg-info/requires.txt
+writing top-level names to ../../build/custom_code/custom_code.egg-info/top_level.txt
+writing manifest file '../../build/custom_code/custom_code.egg-info/SOURCES.txt'
+reading manifest file '../../build/custom_code/custom_code.egg-info/SOURCES.txt'
+writing manifest file '../../build/custom_code/custom_code.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/fastslam_correct.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/robot_functions.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/my_fastslam.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/my_tf.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/__init__.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/my_ekf.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/feature_finder.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/my_localization.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/ekf_correction.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/likelihood.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/ekf_prediction.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+copying custom_code/features.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code
+running install
+running install_lib
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/fastslam_correct.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/robot_functions.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/my_fastslam.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/my_tf.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/__init__.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/my_ekf.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/feature_finder.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/my_localization.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/ekf_correction.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/likelihood.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/ekf_prediction.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+copying /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/build/lib/custom_code/features.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/fastslam_correct.py to fastslam_correct.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/robot_functions.py to robot_functions.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/my_fastslam.py to my_fastslam.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/my_tf.py to my_tf.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/my_ekf.py to my_ekf.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/feature_finder.py to feature_finder.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/my_localization.py to my_localization.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/ekf_correction.py to ekf_correction.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/likelihood.py to likelihood.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/ekf_prediction.py to ekf_prediction.cpython-310.pyc
+byte-compiling /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code/features.py to features.cpython-310.pyc
+running install_data
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/ament_index
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/ament_index/resource_index
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/ament_index/resource_index/packages
+copying resource/custom_code -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/ament_index/resource_index/packages
+copying package.xml -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/launch
+copying launch/launch_my_ekf.launch.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/launch
+copying launch/launch_my_tf.launch.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/launch
+copying launch/launch_my_fastslam.launch.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/launch
+copying launch/launch_my_particles.launch.py -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/launch
+creating /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/rviz
+copying rviz/particulas.rviz -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/rviz
+copying rviz/tf.rviz -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/rviz
+copying rviz/ekf.rviz -> /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/share/custom_code/rviz
+running install_egg_info
+Copying ../../build/custom_code/custom_code.egg-info to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/python3.10/site-packages/custom_code-0.0.0-py3.10.egg-info
+running install_scripts
+Installing ekf script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing ekf_correction script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing ekf_prediction script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing fastslam script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing fastslam_node script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing feature_finder script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing features script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing likelihood script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing localization script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+Installing my_tf script to /home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/install/custom_code/lib/custom_code
+writing list of installed files to '/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_code/install.log'
