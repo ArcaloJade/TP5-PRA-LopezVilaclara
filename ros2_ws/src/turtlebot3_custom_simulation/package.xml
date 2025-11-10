@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>turtlebot3_custom_simulation</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="tadeo.casiraghi@gmail.com">udesa</maintainer>
+  <license>TODO: License declaration</license>
+
+  <depend>ament_cmake</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_msgs</depend>
+  <depend>turtlebot3_msgs</depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

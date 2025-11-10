@@ -1,0 +1,9 @@
+source;share/custom_code/hook/pythonpath.ps1
+source;share/custom_code/hook/pythonpath.dsv
+source;share/custom_code/hook/pythonpath.sh
+source;share/custom_code/hook/ament_prefix_path.ps1
+source;share/custom_code/hook/ament_prefix_path.dsv
+source;share/custom_code/hook/ament_prefix_path.sh
+source;../../build/custom_code/share/custom_code/hook/pythonpath_develop.ps1
+source;../../build/custom_code/share/custom_code/hook/pythonpath_develop.dsv
+source;../../build/custom_code/share/custom_code/hook/pythonpath_develop.sh

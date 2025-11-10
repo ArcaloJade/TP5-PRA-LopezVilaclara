@@ -1,0 +1,79 @@
+[0.006s] Invoking command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/turtlebot3_custom_simulation -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation
+[0.039s] -- The C compiler identification is GNU 11.4.0
+[0.073s] -- The CXX compiler identification is GNU 11.4.0
+[0.076s] -- Detecting C compiler ABI info
+[0.114s] -- Detecting C compiler ABI info - done
+[0.117s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.117s] -- Detecting C compile features
+[0.117s] -- Detecting C compile features - done
+[0.119s] -- Detecting CXX compiler ABI info
+[0.165s] -- Detecting CXX compiler ABI info - done
+[0.169s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.170s] -- Detecting CXX compile features
+[0.170s] -- Detecting CXX compile features - done
+[0.171s] -- Found ament_cmake: 1.3.11 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.260s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.297s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.318s] -- Found geometry_msgs: 4.2.4 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.344s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.347s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.353s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.360s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.370s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.393s] -- Found nav_msgs: 4.2.4 (/opt/ros/humble/share/nav_msgs/cmake)
+[0.403s] -- Found rclcpp: 16.0.11 (/opt/ros/humble/share/rclcpp/cmake)
+[0.427s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.430s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.486s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.499s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.522s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.531s] -- Looking for pthread.h
+[0.572s] -- Looking for pthread.h - found
+[0.572s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.618s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.619s] -- Found Threads: TRUE  
+[0.638s] -- Found sensor_msgs: 4.2.4 (/opt/ros/humble/share/sensor_msgs/cmake)
+[0.646s] -- Found tf2: 0.25.12 (/opt/ros/humble/share/tf2/cmake)
+[0.652s] -- Found tf2_msgs: 0.25.12 (/opt/ros/humble/share/tf2_msgs/cmake)
+[0.675s] -- Found turtlebot3_msgs: 2.3.0 (/home/alumno1/turtlebot3_ws/install/turtlebot3_msgs/share/turtlebot3_msgs/cmake)
+[0.723s] -- Configuring done
+[0.728s] -- Generating done
+[0.730s] -- Build files have been written to: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation
+[0.736s] Invoked command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/turtlebot3_custom_simulation -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation
+[0.736s] Invoking command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation -- -j28 -l28
+[0.766s] [ 50%] [32mBuilding CXX object CMakeFiles/turtlebot3_custom_simulation.dir/src/turtlebot3_custom_simulation.cpp.o[0m
+[4.587s] [100%] [32m[1mLinking CXX executable turtlebot3_custom_simulation[0m
+[4.795s] [100%] Built target turtlebot3_custom_simulation
+[4.802s] Invoked command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --build /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation -- -j28 -l28
+[4.802s] Invoking command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation
+[4.808s] -- Install configuration: ""
+[4.808s] -- Execute custom install script
+[4.808s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/lib/turtlebot3_custom_simulation/turtlebot3_custom_simulation
+[4.813s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/launch/custom_room.launch.py
+[4.818s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/launch/custom_simulation.launch.py
+[4.823s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/param/burger.yaml
+[4.828s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/Walls/model.config
+[4.832s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/Walls/model.sdf
+[4.836s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/map/map.pgm
+[4.840s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/map/map.yaml
+[4.846s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/room.world
+[4.851s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/worlds/slippery.world
+[4.856s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/include//turtlebot3_custom_simulation/turtlebot3_custom_simulation.hpp
+[4.861s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/package_run_dependencies/turtlebot3_custom_simulation
+[4.865s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/parent_prefix_path/turtlebot3_custom_simulation
+[4.868s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/ament_prefix_path.sh
+[4.872s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/ament_prefix_path.dsv
+[4.876s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/path.sh
+[4.882s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/environment/path.dsv
+[4.886s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.bash
+[4.889s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.sh
+[4.893s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.zsh
+[4.898s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/local_setup.dsv
+[4.903s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/package.dsv
+[4.908s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/ament_index/resource_index/packages/turtlebot3_custom_simulation
+[4.912s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/ament_cmake_export_include_directories-extras.cmake
+[4.916s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/ament_cmake_export_dependencies-extras.cmake
+[4.921s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/turtlebot3_custom_simulationConfig.cmake
+[4.926s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/cmake/turtlebot3_custom_simulationConfig-version.cmake
+[4.931s] -- Symlinking: /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/install/turtlebot3_custom_simulation/share/turtlebot3_custom_simulation/package.xml
+[4.937s] Invoked command in '/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/alumno1/turtlebot3_ws/install/turtlebot3_teleop:/home/alumno1/turtlebot3_ws/install/turtlebot3_example:/opt/ros/humble /usr/bin/cmake --install /home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation

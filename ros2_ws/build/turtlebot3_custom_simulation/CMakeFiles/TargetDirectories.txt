@@ -1,0 +1,10 @@
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/uninstall.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/turtlebot3_custom_simulation_uninstall.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/turtlebot3_custom_simulation.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/test.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/edit_cache.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/rebuild_cache.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/list_install_components.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/install.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/install/local.dir
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation/CMakeFiles/install/strip.dir

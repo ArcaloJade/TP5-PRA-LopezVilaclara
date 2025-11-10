@@ -1,0 +1,1 @@
+/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/custom_msgs/ament_cmake_environment_hooks/local_setup.bash

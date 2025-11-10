@@ -1,0 +1,7 @@
+{
+  "package_name": "custom_msgs",
+  "non_idl_tuples": [
+    "/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/custom_msgs:msg/DeltaOdom.msg",
+    "/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/custom_msgs:msg/Belief.msg"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-0e234f21bb520c8c1c2a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "turtlebot3_custom_simulation",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "turtlebot3_custom_simulation::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-turtlebot3_custom_simulation-090054df38cfa7eeb099.json",
+					"name" : "turtlebot3_custom_simulation",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "turtlebot3_custom_simulation_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-turtlebot3_custom_simulation_uninstall-ade1ecacb839e0c67d72.json",
+					"name" : "turtlebot3_custom_simulation_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-7cbd41aefdd4cfdc1789.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/build/turtlebot3_custom_simulation",
+		"source" : "/home/alumno1/Documents/TP4-PRA-LopezVilaclara/ros2_ws/src/turtlebot3_custom_simulation"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

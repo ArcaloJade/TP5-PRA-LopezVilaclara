@@ -1,0 +1,10 @@
+[console_scripts]
+ekf = custom_code.my_ekf:main
+ekf_correction = custom_code.ekf_correction:main
+ekf_prediction = custom_code.ekf_prediction:main
+feature_finder = custom_code.feature_finder:main
+features = custom_code.features:main
+likelihood = custom_code.likelihood:main
+localization = custom_code.my_localization:main
+my_tf = custom_code.my_tf:main
+
