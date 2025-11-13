@@ -80,4 +80,6 @@ def generate_launch_description():
     ld.add_action(start_features_after_finder)
     ld.add_action(start_ekf_after_features)
 
+    ld.add_action(rviz)
+
     return ld 
