@@ -1,370 +1,223 @@
 #!/usr/bin/env python3
-# fastslam_correct.py
-"""
-FastSlamNode - implementación del paso de corrección de FastSLAM
-- Nodo: 'fastslam_node'
-- Suscribe a:
-    /delta (DeltaOdom) -- mensaje custom con deltas de odometría (supongo campos dx, dy, dtheta)
-    /observed_landmarks (PoseArray) -- cada pose: position.x = range, position.z = bearing
-- Publica:
-    /fastslam/landmarks_markers (MarkerArray) -- landmarks + covariances de la mejor partícula
-    /fastslam/pose (PoseStamped) -- pose estimada del robot (mejor partícula)
-- Parámetros / supuestos:
-    alphas = [0.2, 0.2, 0.001, 0.001]
-    measurement std dev = 0.05 (m, rad)
-    p0 (new-feature prior) = small constant (0.001)
-    perceptual_range = 5.0 (m)  -- si querés otro valor, cambiar la constante
-"""
-
 import rclpy
 from rclpy.node import Node
 import numpy as np
 import math
-import random
-
-# ROS messages
-from geometry_msgs.msg import PoseArray, PoseStamped, Quaternion, Pose
+from geometry_msgs.msg import PoseStamped, Quaternion, PoseArray
 from visualization_msgs.msg import Marker, MarkerArray
-from std_msgs.msg import Header
+from custom_msgs.msg import DeltaOdom
 
-# Import custom odom delta message - adjust import path if different
-# Asumiendo mensaje custom llamado DeltaOdom con campos dx, dy, dtheta
-try:
-    from custom_msgs.msg import DeltaOdom
-except Exception:
-    # Si el import falla en pruebas locales, crea un fallback dummy tipo
-    DeltaOdom = None
+# Parámetros propuestos
+ALPHAS = [0.2, 0.2, 0.001, 0.001]
+STD_RANGE = 0.05   # m
+STD_ANGLE = 0.05   # rad
+N_PARTICLES = 100
 
-# Utility: normalize angle to [-pi, pi]
-def normalize_angle(a):
+def wrap_to_pi(a):
     return (a + np.pi) % (2 * np.pi) - np.pi
+
+def quaternion_from_yaw(yaw):
+    q = Quaternion()
+    q.x = 0.0
+    q.y = 0.0
+    q.z = math.sin(yaw * 0.5)
+    q.w = math.cos(yaw * 0.5)
+    return q
+
+class Particle:
+    def __init__(self, x=0.0, y=0.0, theta=0.0, weight=1.0):
+        self.x = float(x)
+        self.y = float(y)
+        self.theta = float(theta)
+        self.weight = float(weight)
+        # landmarks: dict id -> (mu: np.array([x,y]), sigma: 2x2 np.array)
+        self.landmarks = {}
 
 class FastSlamNode(Node):
     def __init__(self):
         super().__init__('fastslam_node')
 
-        # Parameters / constants from consigna
-        self.alphas = [0.2, 0.2, 0.001, 0.001]
-        self.meas_std_range = 0.05
-        self.meas_std_bearing = 0.05
-        self.Q_t = np.diag([self.meas_std_range**2, self.meas_std_bearing**2])
-        self.p0 = 1e-3  # prior weight for new feature
-        self.M = 30     # number of particles (puedes ajustar)
-        self.perceptual_range = 5.0
+        # Suscripciones
+        self.create_subscription(DeltaOdom, '/delta', self.delta_callback, 10)
+        self.create_subscription(PoseArray, '/observed_landmarks', self.observed_callback, 10)
 
-        # Particle set Y: list of particle dicts
-        # particle = {
-        #   'pose': np.array([x,y,theta]),
-        #   'landmarks': { id: {'mu': np.array([mx,my]), 'sigma': 2x2, 'count': int} },
-        #   'weight': float
-        # }
-        self.particles = [self._make_empty_particle() for _ in range(self.M)]
-
-        # Storage for last messages
-        self.last_delta = None
-        self.last_obs = None
-
-        # Subscribers
-        self.create_subscription(PoseArray, '/observed_landmarks', self.observed_cb, 10)
-        if DeltaOdom is not None:
-            self.create_subscription(DeltaOdom, '/delta', self.delta_cb, 10)
-        else:
-            # If custom message not present, subscribe to a fallback topic name
-            self.get_logger().warn("DeltaOdom msg import failed; ensure custom_msgs.msg.DeltaOdom is available.")
-            # Still create a dummy subscription to avoid failing (it won't receive)
-            # You should replace when running in actual environment.
-
-        # Publishers
-        self.landmark_pub = self.create_publisher(MarkerArray, '/fastslam/landmarks_markers', 10)
+        # Publicadores
         self.pose_pub = self.create_publisher(PoseStamped, '/fastslam/pose', 10)
+        self.landmark_pub = self.create_publisher(MarkerArray, '/fastslam/landmarks', 10)
 
-        self.get_logger().info('FastSlamNode initialized.')
+        # Partículas
+        self.particles = [Particle() for _ in range(N_PARTICLES)]
+        self.get_logger().info(f'fastslam_node: initialized {N_PARTICLES} particles')
 
-    def _make_empty_particle(self):
-        return {'pose': np.array([0.0, 0.0, 0.0]), 'landmarks': dict(), 'weight': 1.0 / max(1, self.M)}
+        # Matriz Q
+        self.Q = np.diag([STD_RANGE**2, STD_ANGLE**2])
 
-    #
-    # Callbacks: store last messages and trigger a correction step when we have both
-    #
-    def delta_cb(self, msg):
-        # Assumo campos dx, dy, dtheta. Si tu DeltaOdom usa otros nombres, adaptá acá.
-        try:
-            self.last_delta = (float(msg.dx), float(msg.dy), float(msg.dtheta))
-        except Exception:
-            # Try alternative fields (x,y,theta)
-            try:
-                self.last_delta = (float(msg.delta_x), float(msg.delta_y), float(msg.delta_theta))
-            except Exception:
-                self.get_logger().warn("DeltaOdom fields not recognized. Please ensure dx,dy,dtheta or delta_x,...")
-                self.last_delta = None
-        # If we already have observations, run correction
-        if self.last_obs is not None and self.last_delta is not None:
-            self.run_fastslam_step(self.last_delta, self.last_obs)
-            # reset last_obs so we don't re-process same observation (obs arrive at sensor rate)
-            self.last_obs = None
+        self.last_delta = None
 
-    def observed_cb(self, msg: PoseArray):
-        # Store observations: convert PoseArray to list of (range, bearing)
-        obs = []
-        for p in msg.poses:
-            r = float(p.position.x)
-            # consigna: angle stored in z
-            b = float(p.position.z)
-            obs.append(np.array([r, b]))
-        self.last_obs = obs
-        # If we already have delta, run correction
-        if self.last_delta is not None and self.last_obs is not None:
-            self.run_fastslam_step(self.last_delta, self.last_obs)
-            self.last_obs = None
+        # Publico la mejor pose si no llegan obs
+        self.create_timer(0.2, self.publish_best_particle)
 
-    #
-    # FastSLAM main correction step following your pseudocode
-    #
-    def run_fastslam_step(self, u_t, observations):
+
+    # Actualización de movimiento
+
+    def delta_callback(self, msg: DeltaOdom):
+        dr1 = float(msg.dr1)
+        dt = float(msg.dt)
+        dr2 = float(msg.dr2)
+        self.motion_update(dr1, dt, dr2)
+
+    def motion_update(self, delta_rot1, delta_trans, delta_rot2):
+        a1, a2, a3, a4 = ALPHAS
+        for p in self.particles:
+            sd_rot1 = math.sqrt(a1 * (delta_rot1**2) + a2 * (delta_trans**2))
+            sd_trans = math.sqrt(a3 * (delta_trans**2) + a4 * (delta_rot1**2 + delta_rot2**2))
+            sd_rot2 = math.sqrt(a1 * (delta_rot2**2) + a2 * (delta_trans**2))
+
+            noisy_rot1 = delta_rot1 + np.random.normal(0, sd_rot1)
+            noisy_trans = delta_trans + np.random.normal(0, sd_trans)
+            noisy_rot2 = delta_rot2 + np.random.normal(0, sd_rot2)
+
+            p.x += noisy_trans * math.cos(p.theta + noisy_rot1)
+            p.y += noisy_trans * math.sin(p.theta + noisy_rot1)
+            p.theta = wrap_to_pi(p.theta + noisy_rot1 + noisy_rot2)
+
+    # Observaciones
+    def observed_callback(self, msg: PoseArray):
         """
-        u_t: tuple (dx, dy, dtheta) -- odometry delta in robot frame (assumption)
-        observations: list of np.array([range, bearing])
+        Assumes PoseArray where pose.position.x = range, pose.position.z = bearing (relative),
+        and landmark identity is the index in msg.poses (replace if your data includes explicit IDs).
         """
-        M = self.M
-        Y_aux = []
-        weights = np.zeros(M)
 
-        # For each particle, propagate pose (sample from motion model) and process observations
-        for k in range(M):
-            p = self.particles[k]
-            x_prev = p['pose'].copy()
-            # 3: sample new pose
-            x_new = self.sample_motion_model(x_prev, u_t)
-            p_new = {'pose': x_new.copy(), 'landmarks': dict(), 'weight': 1.0}
+        observations = []
+        for i, pose in enumerate(msg.poses):
+            r = float(pose.position.x)
+            b = float(pose.position.z)
+            observations.append((i, r, b))
 
-            # copy existing landmarks initially
-            for lm_id, lm in p['landmarks'].items():
-                p_new['landmarks'][lm_id] = {'mu': lm['mu'].copy(), 'sigma': lm['sigma'].copy(), 'count': int(lm['count'])}
-
-            # Importance weight for this particle (product of observation weights)
-            particle_weight = 1.0
-
-            # For each observation z_t (assuming independent measurements)
-            for z_t in observations:
-                # For current particle, compute w_j for each existing landmark
-                landmark_ids = sorted(p_new['landmarks'].keys())
-                w_js = []
-                H_list = []
-                zhat_list = []
-                sig_list = []
-
-                for lm_id in landmark_ids:
-                    lm = p_new['landmarks'][lm_id]
-                    mu = lm['mu']
-                    sigma = lm['sigma']
-                    zhat = self.measurement_prediction(mu, x_new)
-                    H = self.jacobian_wrt_landmark(mu, x_new)
-                    Q_j = H @ sigma @ H.T + self.Q_t
-                    # innovation:
-                    nu = z_t - zhat
-                    nu[1] = normalize_angle(nu[1])
-                    # gaussian likelihood
-                    try:
-                        denom = 2 * np.pi * np.sqrt(np.linalg.det(Q_j))
-                        exponent = -0.5 * (nu.T @ np.linalg.inv(Q_j) @ nu)
-                        wj = (1.0 / denom) * np.exp(exponent)
-                    except Exception:
-                        wj = 1e-12
-                    w_js.append(wj)
-                    H_list.append(H)
-                    zhat_list.append(zhat)
-                    sig_list.append(Q_j)
-
-                # weight for new feature
-                w_new = self.p0
-                w_js.append(w_new)
-
-                # find best correspondence
-                j_max = int(np.argmax(w_js))
-                w_c = float(w_js[j_max])
-                # multiply into particle weight
-                particle_weight *= w_c
-
-                # Decide if new feature or existing (note: j_max index corresponds to either an lm index or new)
-                if j_max == len(landmark_ids):
-                    # new feature: initialize with h^{-1}
-                    new_id = 1
-                    if len(landmark_ids) > 0:
-                        new_id = max(landmark_ids) + 1
-                    mu_init = self.inverse_measurement(z_t, x_new)
-                    Hj = self.jacobian_wrt_landmark(mu_init, x_new)
-                    # initialize covariance: (H^{-1})^T Q H^{-1}
-                    try:
-                        Hj_inv = np.linalg.inv(Hj)
-                        sigma_init = Hj_inv.T @ self.Q_t @ Hj_inv
-                    except Exception:
-                        # fallback: large uncertainty
-                        sigma_init = np.eye(2) * 1.0
-                    p_new['landmarks'][new_id] = {'mu': mu_init.copy(), 'sigma': sigma_init.copy(), 'count': 1}
+        # Actualizo peso y landmarks de cada partícula
+        for p in self.particles:
+            new_weight = p.weight if p.weight > 0 else 1.0
+            for (lm_id, r, b) in observations:
+                b_rel = wrap_to_pi(b)
+                if lm_id not in p.landmarks:
+                    mx = p.x + r * math.cos(p.theta + b_rel)
+                    my = p.y + r * math.sin(p.theta + b_rel)
+                    J = np.array([
+                        [math.cos(p.theta + b_rel), -r * math.sin(p.theta + b_rel)],
+                        [math.sin(p.theta + b_rel),  r * math.cos(p.theta + b_rel)]
+                    ])
+                    sigma = J @ self.Q @ J.T
+                    p.landmarks[lm_id] = (np.array([mx, my]), sigma)
+                    # No hago actualizacion de peso pq es nuevo landmark
                 else:
-                    # observed existing feature: perform EKF update
-                    lm_id = landmark_ids[j_max]
-                    lm = p_new['landmarks'][lm_id]
-                    mu_prev = lm['mu']
-                    sigma_prev = lm['sigma']
-                    H = H_list[j_max]
-                    Qj = sig_list[j_max]
-                    zhat = zhat_list[j_max]
-                    # Kalman gain
+                    mu, sigma = p.landmarks[lm_id]
+                    dx = mu[0] - p.x
+                    dy = mu[1] - p.y
+                    q = dx*dx + dy*dy
+                    expected_r = math.sqrt(q)
+                    expected_b = wrap_to_pi(math.atan2(dy, dx) - p.theta)
+                    z_hat = np.array([expected_r, expected_b])
+
+                    if expected_r == 0:
+                        # Pongo esto para no dividir por cero cuando calculo H
+                        continue
+                    H = np.array([
+                        [dx / expected_r, dy / expected_r],
+                        [-dy / q,          dx / q]
+                    ])
+
+                    S = H @ sigma @ H.T + self.Q
+                    # ganancia de Kalman
                     try:
-                        K = sigma_prev @ H.T @ np.linalg.inv(Qj)
-                    except Exception:
-                        K = np.zeros((2,2))
-                    nu = z_t - zhat
-                    nu[1] = normalize_angle(nu[1])
-                    mu_upd = mu_prev + K @ nu
-                    sigma_upd = (np.eye(2) - K @ H) @ sigma_prev
-                    p_new['landmarks'][lm_id]['mu'] = mu_upd
-                    p_new['landmarks'][lm_id]['sigma'] = sigma_upd
-                    p_new['landmarks'][lm_id]['count'] = p_new['landmarks'][lm_id]['count'] + 1
+                        S_inv = np.linalg.inv(S)
+                    except np.linalg.LinAlgError:
+                        S_inv = np.linalg.pinv(S)
+                    K = sigma @ H.T @ S_inv
 
-                # For all other features not observed, apply counter decrement logic:
-                for lm_id in list(p_new['landmarks'].keys()):
-                    if (len(landmark_ids) > 0 and lm_id in landmark_ids and
-                        lm_id != (landmark_ids[j_max] if j_max < len(landmark_ids) else None)):
-                        # not the observed feature this iteration -> check perceptual range
-                        mu = p_new['landmarks'][lm_id]['mu']
-                        dist = np.linalg.norm(mu - x_new[0:2])
-                        if dist <= self.perceptual_range:
-                            # should have been seen but wasn't -> decrement
-                            p_new['landmarks'][lm_id]['count'] -= 1
-                        else:
-                            # outside range -> do not change count
-                            pass
-                        # discard if below zero
-                        if p_new['landmarks'][lm_id]['count'] < 0:
-                            del p_new['landmarks'][lm_id]
+                    z = np.array([r, b_rel])
+                    y_innov = z - z_hat
+                    y_innov[1] = wrap_to_pi(y_innov[1])
 
-            # After processing all observations for this particle, set weight and add to Y_aux
-            p_new['weight'] = particle_weight
-            Y_aux.append(p_new)
-            weights[k] = particle_weight
+                    mu_new = mu + K @ y_innov
+                    sigma_new = (np.eye(2) - K @ H) @ sigma
+                    p.landmarks[lm_id] = (mu_new, sigma_new)
 
-        # Normalize weights (avoid division by zero)
-        if np.sum(weights) <= 0:
-            # Assign uniform weights to avoid degeneracy
-            weights = np.ones(M) / M
-            for k in range(M):
-                Y_aux[k]['weight'] = weights[k]
+                    detS = np.linalg.det(S)
+                    if detS <= 0:
+                        likelihood = 1e-12
+                    else:
+                        denom = 2 * math.pi * math.sqrt(detS)
+                        exponent = -0.5 * (y_innov.T @ S_inv @ y_innov)
+                        likelihood = math.exp(exponent) / denom
+                        likelihood = max(likelihood, 1e-12)
+
+                    new_weight *= likelihood
+
+            p.weight = new_weight
+
+        self.normalize_weights()
+        self.resample_particles()
+
+        self.publish_landmarks_of_best()
+
+    # Funciones auxiliares para pesos y resampling
+    def normalize_weights(self):
+        ws = np.array([p.weight for p in self.particles], dtype=float)
+        s = ws.sum()
+        if s <= 0:
+            for p in self.particles:
+                p.weight = 1.0 / len(self.particles)
         else:
-            weights = weights / np.sum(weights)
-            for k in range(M):
-                Y_aux[k]['weight'] = weights[k]
+            for p in self.particles:
+                p.weight = p.weight / s
 
-        # Resampling: draw M times according to weights
-        indices = self.multinomial_resample(weights, M)
-        Y_t = []
-        for idx in indices:
-            # Deep copy selected particle into new set
-            sel = Y_aux[idx]
-            new_particle = {'pose': sel['pose'].copy(),
-                            'landmarks': {},
-                            'weight': 1.0 / M}
-            for lm_id, lm in sel['landmarks'].items():
-                new_particle['landmarks'][lm_id] = {'mu': lm['mu'].copy(), 'sigma': lm['sigma'].copy(), 'count': int(lm['count'])}
-            Y_t.append(new_particle)
+    def systematic_resample(self, weights):
+        N = len(weights)
+        positions = (np.arange(N) + np.random.random()) / N
+        indexes = np.zeros(N, 'i')
+        cumulative_sum = np.cumsum(weights)
+        i, j = 0, 0
+        while i < N:
+            if positions[i] < cumulative_sum[j]:
+                indexes[i] = j
+                i += 1
+            else:
+                j += 1
+        return indexes
 
-        # Replace particle set
-        self.particles = Y_t
+    def resample_particles(self):
+        weights = np.array([p.weight for p in self.particles], dtype=float)
+        if np.allclose(weights, 1.0 / len(weights)):
+            return  # quiere decir que ya son uniformes!
+        indexes = self.systematic_resample(weights)
+        new_particles = []
+        for idx in indexes:
+            p = self.particles[idx]
+            new_p = Particle(p.x, p.y, p.theta, weight=1.0/len(self.particles))
+            new_p.landmarks = {lm_id: (mu.copy(), sigma.copy()) for lm_id, (mu, sigma) in p.landmarks.items()}
+            new_particles.append(new_p)
+        self.particles = new_particles
 
-        # Publish best particle's landmarks and pose
-        best_idx = int(np.argmax([p['weight'] for p in self.particles]))
-        best_particle = self.particles[best_idx]
-        self.publish_best_particle(best_particle)
+    # Cosas de mejor partícula y publicación
+    def get_best_particle(self):
+        return max(self.particles, key=lambda p: p.weight)
 
-    #
-    # Motion sampling: p(x_t | x_{t-1}, u_t)
-    # u_t assumed (dx, dy, dtheta) in robot frame. We add noise according to alphas.
-    #
-    def sample_motion_model(self, x_prev, u_t):
-        dx, dy, dtheta = u_t
-        # transform odometry delta into world frame using previous theta
-        theta = x_prev[2]
-        R = np.array([[math.cos(theta), -math.sin(theta)],
-                      [math.sin(theta),  math.cos(theta)]])
-        delta_world = R @ np.array([dx, dy])
-        # Add noise: approximation — add gaussian noise proportional to alphas and magnitudes
-        transl_mag = np.linalg.norm([dx, dy])
-        std_trans = self.alphas[0] * abs(transl_mag) + self.alphas[1] * abs(dtheta)
-        std_rot = self.alphas[2] * abs(dtheta) + self.alphas[3] * abs(transl_mag)
-        noisy_tx = delta_world[0] + np.random.normal(0, std_trans)
-        noisy_ty = delta_world[1] + np.random.normal(0, std_trans)
-        noisy_dtheta = dtheta + np.random.normal(0, std_rot)
-        x_new = np.array([x_prev[0] + noisy_tx, x_prev[1] + noisy_ty, normalize_angle(theta + noisy_dtheta)])
-        return x_new
-
-    #
-    # Measurement model h(mu, x): given landmark mu = [mx,my] and robot pose x=[x,y,theta],
-    # return predicted measurement [range, bearing]
-    #
-    def measurement_prediction(self, mu, x):
-        dx = mu[0] - x[0]
-        dy = mu[1] - x[1]
-        r = math.hypot(dx, dy)
-        b = normalize_angle(math.atan2(dy, dx) - x[2])
-        return np.array([r, b])
-
-    #
-    # Jacobian of h with respect to landmark mu (2x2)
-    #
-    def jacobian_wrt_landmark(self, mu, x):
-        dx = mu[0] - x[0]
-        dy = mu[1] - x[1]
-        q = dx*dx + dy*dy
-        r = math.sqrt(q) if q > 1e-12 else 1e-6
-        # H = [ [dx/r, dy/r],
-        #       [-dy/q, dx/q] ]
-        H = np.array([[dx / r, dy / r],
-                      [-dy / q, dx / q]])
-        return H
-
-    #
-    # Inverse measurement h^{-1}(z, x): given range,bearing and robot pose returns landmark position mu
-    #
-    def inverse_measurement(self, z, x):
-        r = z[0]
-        b = z[1]
-        angle = x[2] + b
-        mx = x[0] + r * math.cos(angle)
-        my = x[1] + r * math.sin(angle)
-        return np.array([mx, my])
-
-    #
-    # Resampling utility: multinomial resampling
-    #
-    def multinomial_resample(self, weights, M):
-        # weights assumed normalized
-        cum = np.cumsum(weights)
-        indices = []
-        for _ in range(M):
-            u = random.random()
-            idx = int(np.searchsorted(cum, u))
-            if idx >= len(weights):
-                idx = len(weights) - 1
-            indices.append(idx)
-        return indices
-
-    #
-    # Publishers & marker helpers (from consigna)
-    #
-    def quaternion_from_yaw(self, yaw):
-        q = Quaternion()
-        q.x = 0.0
-        q.y = 0.0
-        q.z = math.sin(yaw / 2.0)
-        q.w = math.cos(yaw / 2.0)
-        return q
+    def publish_best_particle(self):
+        best = self.get_best_particle()
+        ps = PoseStamped()
+        ps.header.frame_id = 'map'
+        ps.header.stamp = self.get_clock().now().to_msg()
+        ps.pose.position.x = best.x
+        ps.pose.position.y = best.y
+        ps.pose.position.z = 0.0
+        ps.pose.orientation = quaternion_from_yaw(best.theta)
+        self.pose_pub.publish(ps)
 
     def make_landmark_marker(self, idx, x, y):
         m = Marker()
         m.header.frame_id = "map"
         m.header.stamp = self.get_clock().now().to_msg()
-        m.id = idx
+        m.id = int(idx)
         m.type = Marker.SPHERE
         m.action = Marker.ADD
         m.pose.position.x = float(x)
@@ -380,24 +233,23 @@ class FastSlamNode(Node):
         return m
 
     def make_covariance_marker(self, idx, x, y, cov):
-        # Compute ellipse parameters
         vals, vecs = np.linalg.eigh(cov)
         order = vals.argsort()[::-1]
-        vals, vecs = vals[order], vecs[:, order]
+        vals = vals[order]
+        vecs = vecs[:, order]
         angle = math.atan2(vecs[1, 0], vecs[0, 0])
         scale_x = 30 * 2 * math.sqrt(max(vals[0], 1e-12))
         scale_y = 30 * 2 * math.sqrt(max(vals[1], 1e-12))
         m = Marker()
         m.header.frame_id = "map"
         m.header.stamp = self.get_clock().now().to_msg()
-        m.id = idx
+        m.id = int(idx)
         m.type = Marker.CYLINDER
         m.action = Marker.ADD
         m.pose.position.x = float(x)
         m.pose.position.y = float(y)
         m.pose.position.z = 0.0
-        q = self.quaternion_from_yaw(angle)
-        m.pose.orientation = q
+        m.pose.orientation = quaternion_from_yaw(angle)
         m.scale.x = float(scale_x)
         m.scale.y = float(scale_y)
         m.scale.z = 0.01
@@ -407,28 +259,17 @@ class FastSlamNode(Node):
         m.color.a = 0.3
         return m
 
-    def publish_best_particle(self, particle):
-        # Publish PoseStamped for robot pose
-        ps = PoseStamped()
-        ps.header.frame_id = "map"
-        ps.header.stamp = self.get_clock().now().to_msg()
-        ps.pose.position.x = float(particle['pose'][0])
-        ps.pose.position.y = float(particle['pose'][1])
-        quat = self.quaternion_from_yaw(float(particle['pose'][2]))
-        ps.pose.orientation = quat
-        self.pose_pub.publish(ps)
-
-        # Prepare MarkerArray for landmarks
+    def publish_landmarks_of_best(self):
+        best = self.get_best_particle()
         ma = MarkerArray()
-        idx = 0
-        for lm_id, lm in sorted(particle['landmarks'].items()):
-            mu = lm['mu']
-            sigma = lm['sigma']
-            ma.markers.append(self.make_landmark_marker(idx*2, mu[0], mu[1]))
-            ma.markers.append(self.make_covariance_marker(idx*2+1, mu[0], mu[1], sigma))
-            idx += 1
+        for lm_id, (lm_mu, lm_sigma) in best.landmarks.items():
+            try:
+                li = int(lm_id)
+            except Exception:
+                li = hash(lm_id) % 100000
+            ma.markers.append(self.make_landmark_marker(li*2, lm_mu[0], lm_mu[1]))
+            ma.markers.append(self.make_covariance_marker(li*2+1, lm_mu[0], lm_mu[1], lm_sigma))
         self.landmark_pub.publish(ma)
-
 
 def main(args=None):
     rclpy.init(args=args)
@@ -437,8 +278,9 @@ def main(args=None):
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
-    node.destroy_node()
-    rclpy.shutdown()
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
