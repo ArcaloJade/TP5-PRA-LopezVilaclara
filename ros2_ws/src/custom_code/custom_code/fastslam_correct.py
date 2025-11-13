@@ -11,7 +11,7 @@ from custom_msgs.msg import DeltaOdom
 ALPHAS = [0.2, 0.2, 0.001, 0.001]
 STD_RANGE = 0.05   # m
 STD_ANGLE = 0.05   # rad
-N_PARTICLES = 100
+N_PARTICLES = 50
 
 def wrap_to_pi(a):
     return (a + np.pi) % (2 * np.pi) - np.pi
@@ -90,12 +90,15 @@ class FastSlamNode(Node):
 
         observations = []
         for i, pose in enumerate(msg.poses):
+            if pose.position.x == 0:
+                continue
             r = float(pose.position.x)
             b = float(pose.position.z)
             observations.append((i, r, b))
 
         # Actualizo peso y landmarks de cada partícula
         for p in self.particles:
+
             new_weight = p.weight if p.weight > 0 else 1.0
             for (lm_id, r, b) in observations:
                 b_rel = wrap_to_pi(b)
@@ -155,8 +158,8 @@ class FastSlamNode(Node):
 
             p.weight = new_weight
 
-        self.normalize_weights()
-        self.resample_particles()
+        # self.normalize_weights()
+        # self.resample_particles()
 
         self.publish_landmarks_of_best()
 

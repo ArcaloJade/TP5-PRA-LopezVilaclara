@@ -26,6 +26,7 @@ launch/launch_my_particles.launch.py
 launch/launch_my_tf.launch.py
 resource/custom_code
 rviz/ekf.rviz
+rviz/my_config.rviz
 rviz/particulas.rviz
 rviz/tf.rviz
 test/test_copyright.py

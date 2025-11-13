@@ -175,6 +175,7 @@ CMakeFiles/custom_msgs_uninstall.dir/clean:
 # Target rules for target CMakeFiles/custom_msgs.dir
 
 # All Build rule for target.
+CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_fastrtps_cpp.dir/all
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_introspection_c.dir/all
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_c.dir/all
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_introspection_cpp.dir/all
@@ -182,7 +183,6 @@ CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_cpp.d
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_generator_c.dir/all
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_fastrtps_c.dir/all
 CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__cpp.dir/all
-CMakeFiles/custom_msgs.dir/all: CMakeFiles/custom_msgs__rosidl_typesupport_fastrtps_cpp.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/custom_msgs.dir/build.make CMakeFiles/custom_msgs.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/custom_msgs.dir/build.make CMakeFiles/custom_msgs.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/alumno1/Documents/TP5-PRA-LopezVilaclara/ros2_ws/build/custom_msgs/CMakeFiles --progress-num= "Built target custom_msgs"

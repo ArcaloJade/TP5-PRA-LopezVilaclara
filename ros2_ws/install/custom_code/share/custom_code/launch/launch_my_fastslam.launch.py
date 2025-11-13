@@ -41,11 +41,16 @@ def generate_launch_description():
         output='screen'
     )
 
-    teleop = Node(
-        package='teleop_twist_keyboard',
-        executable='teleop_twist_keyboard',
-        name='teleop_keyboard',
-        output='screen'
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        # Si tienes un archivo de configuración específico para RViz
+        # puedes añadir la configuración de RViz como parámetro.
+        # Por ejemplo:
+        arguments=['-d', os.path.join(
+            get_package_share_directory('custom_code'), 'rviz', 'my_config.rviz')],
     )
 
     # --- Event handlers to enforce order ---
@@ -65,7 +70,6 @@ def generate_launch_description():
         )
     )
     
-    
 
     ld = LaunchDescription()
     
@@ -76,7 +80,6 @@ def generate_launch_description():
     ld.add_action(start_features_after_finder)
     ld.add_action(start_ekf_after_features)
 
-    # Agregamos el teleop (no depende de otros)
-    ld.add_action(teleop)
+    ld.add_action(rviz)
 
     return ld 
