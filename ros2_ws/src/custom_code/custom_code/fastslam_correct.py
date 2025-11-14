@@ -158,8 +158,8 @@ class FastSlamNode(Node):
 
             p.weight = new_weight
 
-        # self.normalize_weights()
-        # self.resample_particles()
+        self.normalize_weights()
+        self.resample_particles()
 
         self.publish_landmarks_of_best()
 
